@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">IsaGitHubX</string>
+    <string name="home">Home</string>
+    <string name="search">Search</string>
+    <string name="profile">Profile</string>
+    <string name="login_page_title">Login</string>
+    <string name="login_close">Close</string>
+    <string name="profile_page_title">Profile</string>
+    <string name="search_page_title">Search</string>
+    <string name="log_out">log out</string>
+    <string name="request_error">Request Error</string>
+    <string name="retry">Retry</string>
+    <string name="no_more">No more</string>
+    <string name="network_not_available">Network is not available; Pls try later</string>
+</resources>
