@@ -57,9 +57,9 @@ interface ApiService {
         @Query("per_page") perPage: Int
     ): MutableList<UserInfo>
 
-//    /**
-//     * get users repos
-//     */
+    /**
+     * get users repos
+     */
     @GET("/users/{username}/repos")
     suspend fun getPros(
         @Path("username") username: String

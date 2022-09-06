@@ -4,7 +4,13 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../../layout/compose-model-1662349117371.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_check.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_chevron_right.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_close.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_navigation_home.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_refresh.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_reload.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_settings.xml" value="0.1" />
       </map>
     </option>
   </component>

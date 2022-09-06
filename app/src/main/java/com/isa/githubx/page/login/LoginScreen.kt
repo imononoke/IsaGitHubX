@@ -9,9 +9,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
-import com.isa.githubx.R
 import com.isa.githubx.uikit.widgets.Title
+import com.isa.githubx.R
 
 @Composable
 fun LoginScreen(

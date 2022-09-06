@@ -8,6 +8,12 @@ object Icons {
     val Close: Int = R.drawable.ic_close
 
     @DrawableRes
+    val ChevronRight: Int = R.drawable.ic_chevron_right
+
+    @DrawableRes
     val Star: Int = R.drawable.ic_star_yellow_light
+
+    @DrawableRes
+    val Settings: Int = R.drawable.ic_settings
 
 }

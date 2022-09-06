@@ -1,4 +1,4 @@
-package com.isa.githubx.page.home
+package com.isa.githubx.page.home.repos
 
 import android.os.Build
 import androidx.annotation.RequiresApi
@@ -16,7 +16,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
@@ -25,9 +24,10 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemsIndexed
 import coil.compose.rememberImagePainter
 import com.google.accompanist.placeholder.material.placeholder
-import com.google.accompanist.swiperefresh.SwipeRefresh
-import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.isa.githubx.model.RepoEntity
+import com.isa.githubx.page.home.ContentLayout
+import com.isa.githubx.page.home.ViewEvent
+import com.isa.githubx.page.home.ViewState
 import com.isa.githubx.uikit.Icons
 import com.isa.githubx.uikit.theme.Dimens
 import com.isa.githubx.uikit.theme.MaterialColors
@@ -35,27 +35,10 @@ import kotlinx.coroutines.flow.Flow
 
 @RequiresApi(Build.VERSION_CODES.N)
 @Composable
-internal fun RepoContent(
+internal fun ReposContent(
     viewState: ViewState,
     onEvent: (ViewEvent) -> Unit,
 ) {
-//    val data = viewState.pagingData?.collectAsLazyPagingItems()
-//    val listState = if (data?.itemCount > 0) viewState.listState else LazyListState()
-
-//    RefreshList(
-//        lazyPagingItems = data,
-//        listState = listState
-//    ) {
-//        itemsIndexed(data) { _, item ->
-//            item?.let {
-//                Item(
-//                    entity = it,
-//                    onEvent = onEvent
-//                )
-//            }
-//        }
-//    }
-
     ContentLayout(
         isRefreshing = viewState.isRefreshing,
         onRefresh = {
@@ -70,21 +53,6 @@ internal fun RepoContent(
                 )
             }
         }
-    )
-}
-
-@Composable
-private fun ContentLayout(
-    isRefreshing: Boolean,
-    onRefresh: () -> Unit,
-    content: @Composable () -> Unit,
-) {
-    val swipeRefreshState = rememberSwipeRefreshState(isRefreshing)
-    SwipeRefresh(
-        state = swipeRefreshState,
-        onRefresh = onRefresh,
-        modifier = Modifier.fillMaxSize(),
-        content = content
     )
 }
 
@@ -125,7 +93,7 @@ private fun Item(
     Column(
         modifier = Modifier.fillMaxWidth()
             .clickable {
-                entity.owner.login?.let {
+                entity.html_url?.let {
                     onEvent(ViewEvent.ToRepoDetail(it))
                 }
             }

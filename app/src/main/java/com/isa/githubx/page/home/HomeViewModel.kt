@@ -84,7 +84,7 @@ internal class HomeViewModel @Inject constructor(
             }
 
             is ViewEvent.ToRepoDetail ->
-                emit(OneShotEvent.ToRepoDetail(username))
+                emit(OneShotEvent.ToRepoDetail(url))
         }
     }
 
@@ -105,10 +105,10 @@ internal data class ViewState(
 internal sealed interface ViewEvent {
     object ToSearch : ViewEvent
     object Refresh : ViewEvent
-    data class ToRepoDetail(val username: String) : ViewEvent
+    data class ToRepoDetail(val url: String) : ViewEvent
 }
 
 internal sealed interface OneShotEvent {
     object ToSearch : OneShotEvent
-    data class ToRepoDetail(val username: String) : OneShotEvent
+    data class ToRepoDetail(val url: String) : OneShotEvent
 }

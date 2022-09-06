@@ -15,8 +15,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
@@ -27,9 +25,8 @@ import coil.compose.rememberImagePainter
 import com.google.accompanist.placeholder.material.placeholder
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
-import com.isa.githubx.R
-import com.isa.githubx.model.RepoEntity
 import com.isa.githubx.model.UserInfo
+import com.isa.githubx.page.home.ContentLayout
 import com.isa.githubx.uikit.theme.Dimens
 import com.isa.githubx.uikit.theme.MaterialColors
 import kotlinx.coroutines.flow.Flow
@@ -38,12 +35,11 @@ import kotlinx.coroutines.flow.collect
 @RequiresApi(Build.VERSION_CODES.N)
 @Composable
 internal fun UsersPage(
-    navController: NavHostController,
-    scaffoldState: ScaffoldState,
+    navController: NavHostController
 ) {
     val viewModel: UsersViewModel = hiltViewModel()
 
-    RepoContent(
+    UsersContent(
         viewState = viewModel.viewState,
         onEvent = viewModel::onEvent
     )
@@ -61,7 +57,7 @@ internal fun UsersPage(
 
 @RequiresApi(Build.VERSION_CODES.N)
 @Composable
-internal fun RepoContent(
+internal fun UsersContent(
     viewState: ViewState,
     onEvent: (ViewEvent) -> Unit,
 ) {
@@ -78,21 +74,6 @@ internal fun RepoContent(
                 )
             }
         }
-    )
-}
-
-@Composable
-private fun ContentLayout(
-    isRefreshing: Boolean,
-    onRefresh: () -> Unit,
-    content: @Composable () -> Unit,
-) {
-    val swipeRefreshState = rememberSwipeRefreshState(isRefreshing)
-    SwipeRefresh(
-        state = swipeRefreshState,
-        onRefresh = onRefresh,
-        modifier = Modifier.fillMaxSize(),
-        content = content
     )
 }
 
