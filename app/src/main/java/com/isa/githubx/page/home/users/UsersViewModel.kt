@@ -52,6 +52,8 @@ internal class UsersViewModel @Inject constructor(
         when (this) {
             ViewEvent.Refresh -> {}
             ViewEvent.ToSearch -> {}
+            is ViewEvent.ToShowDetail ->
+                emit(OneShotEvent.ToShowDetail(url))
         }
     }
 
@@ -70,8 +72,10 @@ internal data class ViewState(
 internal sealed interface ViewEvent {
     object ToSearch : ViewEvent
     object Refresh : ViewEvent
+    data class ToShowDetail(val url: String) : ViewEvent
 }
 
 internal sealed interface OneShotEvent {
     object ToSearch : OneShotEvent
+    data class ToShowDetail(val url: String) : OneShotEvent
 }

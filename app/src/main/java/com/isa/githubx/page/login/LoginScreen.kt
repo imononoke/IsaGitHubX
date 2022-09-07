@@ -34,5 +34,11 @@ fun LoginScreen(
     }
 }
 
-const val LOGIN_ROUTE = "login"
-const val LOGIN_KEY_USERNAME = "username"
+private const val LOGIN_ROUTE_PREFIX = "login"
+internal const val KEY_USERNAME = "username"
+const val LOGIN_ROUTE =
+    "$LOGIN_ROUTE_PREFIX?$KEY_USERNAME={$KEY_USERNAME}"
+
+fun loginRoute(
+    username: String
+) = "$LOGIN_ROUTE?$KEY_USERNAME=$username"

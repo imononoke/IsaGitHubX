@@ -8,9 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.isa.githubx.common.simplePager
 import com.isa.githubx.model.RepoEntity
-import com.isa.githubx.network.ApiService
 import com.isa.githubx.repository.SearchRepository
 import com.isa.githubx.uikit.widgets.TabTitle
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -83,8 +81,8 @@ internal class HomeViewModel @Inject constructor(
                 }
             }
 
-            is ViewEvent.ToRepoDetail ->
-                emit(OneShotEvent.ToRepoDetail(url))
+            is ViewEvent.ToShowDetail ->
+                emit(OneShotEvent.ToShowDetail(url))
         }
     }
 
@@ -105,10 +103,10 @@ internal data class ViewState(
 internal sealed interface ViewEvent {
     object ToSearch : ViewEvent
     object Refresh : ViewEvent
-    data class ToRepoDetail(val url: String) : ViewEvent
+    data class ToShowDetail(val url: String) : ViewEvent
 }
 
 internal sealed interface OneShotEvent {
     object ToSearch : OneShotEvent
-    data class ToRepoDetail(val url: String) : OneShotEvent
+    data class ToShowDetail(val url: String) : OneShotEvent
 }

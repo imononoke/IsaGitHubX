@@ -94,7 +94,7 @@ private fun Item(
         modifier = Modifier.fillMaxWidth()
             .clickable {
                 entity.html_url?.let {
-                    onEvent(ViewEvent.ToRepoDetail(it))
+                    onEvent(ViewEvent.ToShowDetail(it))
                 }
             }
     ) {

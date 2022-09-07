@@ -19,7 +19,7 @@ fun AppWebView(
     //自己处理返回事件
     onBack: (webView: WebView?) -> Unit,
     //自己选择是否接收，网页地址加载进度回调
-    onProgressChange: (progress:Int)->Unit = {},
+    onProgressChange: (progress:Int) -> Unit = {},
     //自己选择是否设置自己的WebSettings配置
     initSettings: (webSettings: WebSettings?) -> Unit = {},
     //自己选择是否处理onReceivedError回调事件

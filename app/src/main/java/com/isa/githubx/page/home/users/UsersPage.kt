@@ -4,11 +4,14 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material.*
+import androidx.compose.material.Divider
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
@@ -23,8 +26,6 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemsIndexed
 import coil.compose.rememberImagePainter
 import com.google.accompanist.placeholder.material.placeholder
-import com.google.accompanist.swiperefresh.SwipeRefresh
-import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.isa.githubx.model.UserInfo
 import com.isa.githubx.page.home.ContentLayout
 import com.isa.githubx.uikit.theme.Dimens
@@ -35,7 +36,8 @@ import kotlinx.coroutines.flow.collect
 @RequiresApi(Build.VERSION_CODES.N)
 @Composable
 internal fun UsersPage(
-    navController: NavHostController
+    navController: NavHostController,
+    toWebView: (url: String) -> Unit
 ) {
     val viewModel: UsersViewModel = hiltViewModel()
 
@@ -49,6 +51,7 @@ internal fun UsersPage(
             with (it) {
                 when (this) {
                     OneShotEvent.ToSearch -> TODO()
+                    is OneShotEvent.ToShowDetail -> toWebView(url)
                 }
             }
         }
@@ -70,7 +73,8 @@ internal fun UsersContent(
             viewState.pagingData?.let {
                 ContentItems(
                     modifier = Modifier.fillMaxSize(),
-                    data = it
+                    data = it,
+                    onEvent = onEvent
                 )
             }
         }
@@ -82,7 +86,8 @@ internal fun UsersContent(
 private fun ContentItems(
     modifier: Modifier = Modifier,
     state: LazyListState = rememberLazyListState(),
-    data: Flow<PagingData<UserInfo>>
+    data: Flow<PagingData<UserInfo>>,
+    onEvent: (ViewEvent) -> Unit,
 ) {
     val items = data.collectAsLazyPagingItems()
 
@@ -96,7 +101,7 @@ private fun ContentItems(
     ) {
         itemsIndexed(items) { index, entity ->
             entity?.let {
-                Item(it)
+                Item(it, onEvent)
             }
         }
     }
@@ -104,14 +109,20 @@ private fun ContentItems(
 
 @Composable
 private fun Item(
-    entity: UserInfo
+    entity: UserInfo,
+    onEvent: (ViewEvent) -> Unit,
 ) {
     Row(
         modifier = Modifier
             .placeholder(false)
             .fillMaxWidth()
             .background(color = MaterialColors.background)
-            .padding(5.dp),
+            .padding(5.dp)
+            .clickable {
+                entity.html_url?.let {
+                    onEvent(ViewEvent.ToShowDetail(it))
+                }
+            },
         verticalAlignment = Alignment.Top
     ) {
         entity.avatar_url?.let { avatarUrl ->

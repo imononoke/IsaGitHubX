@@ -1,4 +1,4 @@
-package com.isa.githubx.page.home.repos
+package com.isa.githubx.page.webview
 
 import android.os.Build
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,17 +11,17 @@ import androidx.navigation.NavHostController
 import com.isa.githubx.common.AppWebView
 
 @Composable
-fun RepoDetailPage(
+fun WebViewScreen(
     navController: NavHostController,
     url: String
 ) {
-    var rememberWebProgress: MutableState<Int> = remember { mutableStateOf(-1) }
+    val rememberWebProgress: MutableState<Int> = remember { mutableStateOf(-1) }
 
     AppWebView(
         modifier = Modifier.fillMaxSize(),
         url = url,
         onProgressChange = { progress ->
-//            rememberWebProgress = progress
+            rememberWebProgress.value = progress
         },
         initSettings = {settings->
             settings?.apply {
@@ -56,12 +56,12 @@ fun RepoDetailPage(
 //    )
 }
 
-private const val REPO_DETAIL_ROUTE_PREFIX = "repoDetail"
+private const val WEBVIEW_ROUTE_PREFIX = "webview"
 internal const val KEY_URL = "url"
 
-const val REPO_DETAIL_ROUTE =
-    "$REPO_DETAIL_ROUTE_PREFIX?$KEY_URL={$KEY_URL}"
+const val WEBVIEW_ROUTE =
+    "$WEBVIEW_ROUTE_PREFIX?$KEY_URL={$KEY_URL}"
 
-fun repoDetailRoute(
+fun webRoute(
     url: String
-) = "$REPO_DETAIL_ROUTE_PREFIX?$KEY_URL=$url"
+) = "$WEBVIEW_ROUTE_PREFIX?$KEY_URL=$url"

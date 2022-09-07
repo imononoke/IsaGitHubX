@@ -13,7 +13,8 @@ import kotlinx.coroutines.flow.collect
 @RequiresApi(Build.VERSION_CODES.N)
 @Composable
 internal fun ReposScreen(
-    navController: NavHostController
+    navController: NavHostController,
+    toWebView: (url: String) -> Unit
 ) {
     val viewModel: HomeViewModel = hiltViewModel()
 
@@ -27,10 +28,8 @@ internal fun ReposScreen(
             with (it) {
                 when (this) {
                     OneShotEvent.ToSearch -> {}
-                    is OneShotEvent.ToRepoDetail -> {
-                        navController.navigate(
-                            route = repoDetailRoute(url = url)
-                        )
+                    is OneShotEvent.ToShowDetail -> {
+                        toWebView(url)
                     }
                 }
             }
